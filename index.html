@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Irana Cakes | Alta Confeitaria</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="images/icone.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              serif: ['"Cormorant Garamond"', "serif"],
+            },
+            colors: {
+              theme: {
+                bg: "#FAF9F6",
+                pink: {
+                  50: "#FDF2F4",
+                  100: "#F7DFE4",
+                  300: "#EAB8C3",
+                  500: "#D17A8F",
+                },
+                green: {
+                  50: "#F0F5F2",
+                  100: "#DDEAE3",
+                  300: "#B2CFC0",
+                  500: "#739E88",
+                },
+                dark: "#2A2A2A",
+                muted: "#737373",
+              },
+            },
+            animation: {
+              marquee: "marquee 35s linear infinite",
+            },
+            keyframes: {
+              marquee: {
+                "0%": { transform: "translateX(0%)" },
+                "100%": { transform: "translateX(-50%)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Suaviza a pausa do carrossel ao passar o mouse */
+      .pause-on-hover:hover {
+        animation-play-state: paused;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-theme-bg text-theme-dark font-sans antialiased selection:bg-theme-pink-100 selection:text-theme-pink-500 overflow-x-hidden relative"
+  >
+    <!-- Elementos Decorativos de Fundo (Bolos, Rosquinhas, etc em opacidade 4%) -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <!-- Donut Esquerda Cima -->
+      <svg
+        class="absolute top-[10%] left-[-5%] w-64 h-64 text-theme-pink-500 opacity-[0.04] transform -rotate-12"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"
+        />
+      </svg>
+      <!-- Cupcake Direita Cima -->
+      <svg
+        class="absolute top-[20%] right-[-2%] w-48 h-48 text-theme-green-500 opacity-[0.04] transform rotate-12"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12,2A4,4,0,0,0,8,6c0,.13,0,.25.05.37C6.3,6.86,5,8.27,5,10c0,1.93,1.4,3.53,3.24,3.92L7,22H17l-1.24-8.08C17.6,13.53,19,11.93,19,10c0-1.73-1.3-3.14-3.05-3.63C16,6.25,16,6.13,16,6A4,4,0,0,0,12,2M12,4A2,2,0,0,1,14,6c0,.5-.18,1-.5,1.38L12,9,10.5,7.38C10.18,7,10,6.5,10,6A2,2,0,0,1,12,4Z"
+        />
+      </svg>
+      <!-- Fatias de Bolo Esquerda Meio -->
+      <svg
+        class="absolute top-[50%] left-[5%] w-40 h-40 text-theme-pink-500 opacity-[0.04] transform -rotate-6"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12,18H4V10L12,6M13,6.31L20,9.81V18H14M12,3L22,8V20H2V8L12,3Z"
+        />
+      </svg>
+      <!-- Cereja Direita Baixo -->
+      <svg
+        class="absolute bottom-[20%] right-[5%] w-56 h-56 text-theme-green-500 opacity-[0.04] transform rotate-45"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12,2C10.34,2 9,3.34 9,5C9,6.07 9.56,7.03 10.42,7.57C10.16,8.23 10,8.96 10,9.75C10,10.73 10.22,11.66 10.6,12.5C9.8,13.1 9,13.59 8.16,13.9C6.46,12.75 4.38,13.06 3.09,14.34C1.5,15.93 1.5,18.5 3.09,20.09C4.68,21.68 7.25,21.68 8.84,20.09C9.75,19.18 10.09,17.91 9.87,16.71C10.6,16.14 11.23,15.42 11.75,14.6C12.77,15.4 14.11,15.9 15.5,15.9C19.09,15.9 22,13 22,9.41C22,5.82 19.09,2.91 15.5,2.91C14.73,2.91 14,3.05 13.31,3.3C13,2.5 12.56,2 12,2M15.5,4.91C18,4.91 20,6.91 20,9.41C20,11.91 18,13.91 15.5,13.91C13.23,13.91 11.36,12.24 11.05,10.07C11.83,9 12.35,7.74 12.5,6.38C13.35,5.43 14.36,4.91 15.5,4.91M12,6C11.45,6 11,5.55 11,5C11,4.45 11.45,4 12,4C12.55,4 13,4.45 13,5C13,5.55 12.55,6 12,6Z"
+        />
+      </svg>
+    </div>
+
+    <!-- Todo o conteúdo do site deve ficar em frente aos fundos decorativos -->
+    <div class="relative z-10">
+      <!-- Lógica do WhatsApp e Instagram -->
+      <script>
+        const WHATSAPP_NUMBER = "558183150387";
+        const INSTAGRAM_URL =
+          "https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw==";
+
+        function pedirBolo(nomeDoBolo) {
+          const msg = encodeURIComponent(
+            `Olá, Irana! Estava no seu site e me encantei pelo "${nomeDoBolo}". Poderia me passar os valores e disponibilidade? 🎂✨`,
+          );
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+        }
+
+        function contatoGeral() {
+          const msg = encodeURIComponent(
+            `Olá, Irana! Gostaria de conversar sobre uma encomenda de bolo.`,
+          );
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+        }
+      </script>
+
+      <!-- Navbar Flutuante -->
+      <nav class="fixed top-4 left-0 right-0 z-50 px-4">
+        <div
+          class="max-w-5xl mx-auto bg-white/70 backdrop-blur-lg border border-white/40 shadow-sm rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between"
+        >
+          <a href="#" class="flex items-center gap-3 group">
+            <div
+              class="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-theme-pink-100 bg-theme-pink-50 flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
+            >
+              <img
+                src="images/icone.png"
+                alt="Irana Cakes Logo"
+                class="w-full h-full object-cover"
+                onerror="this.style.display = 'none'"
+              />
+            </div>
+            <span
+              class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-theme-dark leading-none pt-1"
+              >Irana Cakes</span
+            >
+          </a>
+
+          <div class="flex items-center gap-2 sm:gap-4">
+            <a
+              href="https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              class="p-2 rounded-full text-theme-muted hover:text-theme-pink-500 hover:bg-theme-pink-50 transition-colors"
+            >
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <button
+              onclick="contatoGeral()"
+              class="flex items-center gap-2 bg-theme-dark text-white px-5 py-2 sm:py-2.5 rounded-full text-sm font-medium hover:bg-theme-pink-500 transition-all duration-300 transform hover:scale-105 shadow-md"
+            >
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Faça sua Encomenda</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <section class="pt-36 pb-16 sm:pt-40 sm:pb-24 px-4 relative">
+        <div
+          class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none"
+        >
+          <div
+            class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-theme-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"
+          ></div>
+          <div
+            class="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-theme-green-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"
+          ></div>
+        </div>
+
+        <div
+          class="max-w-5xl mx-auto text-center flex flex-col items-center relative z-10"
+        >
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-theme-green-50 border border-theme-green-100 text-theme-green-500 text-xs font-semibold uppercase tracking-widest mb-8 shadow-sm"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-theme-green-500"></span>
+            Confeitaria Artesanal
+          </div>
+
+          <h1
+            class="font-serif text-5xl sm:text-6xl md:text-7xl font-bold text-theme-dark leading-[1.1] max-w-4xl tracking-tight"
+          >
+            A arte de transformar <br class="hidden sm:block" />
+            <span class="text-theme-pink-500 italic font-light"
+              >doces em memórias.</span
+            >
+          </h1>
+
+          <p class="mt-6 text-lg text-theme-muted max-w-2xl font-light">
+            Bolos com design moderno e sabores inesquecíveis. Perfeitos para
+            celebrar os momentos mais especiais da sua vida.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button
+              onclick="contatoGeral()"
+              class="group flex items-center justify-center gap-2 bg-theme-pink-500 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-theme-dark transition-colors duration-300 shadow-lg shadow-theme-pink-300/30"
+            >
+              Ver Cardápio no WhatsApp
+              <i
+                data-lucide="arrow-right"
+                class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vitrine de Bolos -->
+      <section class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="mb-12 flex flex-col sm:flex-row items-end justify-between gap-4"
+          >
+            <div>
+              <h2 class="font-serif text-4xl font-bold text-theme-dark">
+                Nossas Especialidades
+              </h2>
+              <p class="text-theme-muted mt-2">
+                Clique no bolo desejado para encomendar.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+            <!-- Card 1 -->
+            <div
+              onclick="pedirBolo('Bolo de Casamento/Festa')"
+              class="md:col-span-2 md:row-span-2 group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-pink-50 isolate shadow-sm hover:shadow-xl transition-shadow"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop"
+                alt="Bolo Floral"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+              ></div>
+
+              <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                <div
+                  class="transform transition-transform duration-500 group-hover:-translate-y-2"
+                >
+                  <span
+                    class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium mb-3 border border-white/30"
+                    >Premium</span
+                  >
+                  <h3
+                    class="font-serif text-3xl sm:text-4xl text-white font-bold mb-2"
+                  >
+                    Floral Contemporâneo
+                  </h3>
+                  <p class="text-white/80 font-light max-w-md hidden sm:block">
+                    Massa amanteigada suave com recheios sofisticados,
+                    finalizado com flores nobres.
+                  </p>
+                  <div
+                    class="mt-6 flex items-center gap-2 text-white text-sm font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Pedir
+                    pelo WhatsApp
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              onclick="pedirBolo('Red Velvet Especial')"
+              class="group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-green-50 isolate shadow-sm hover:shadow-xl transition-shadow"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop"
+                alt="Bolo Red Velvet"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"
+              ></div>
+              <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                <h3 class="font-serif text-2xl text-white font-bold">
+                  Red Velvet Original
+                </h3>
+                <div
+                  class="mt-4 flex items-center gap-2 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  Encomendar
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              onclick="pedirBolo('Chocolatudo Intenso')"
+              class="group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-pink-100 isolate shadow-sm hover:shadow-xl transition-shadow"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop"
+                alt="Bolo de Chocolate"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"
+              ></div>
+              <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                <h3 class="font-serif text-2xl text-white font-bold">
+                  Chocolatudo Intenso
+                </h3>
+                <div
+                  class="mt-4 flex items-center gap-2 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  Encomendar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Banner Informativo -->
+      <section class="py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="rounded-[2.5rem] bg-theme-green-50/80 backdrop-blur-sm p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden border border-theme-green-100 shadow-sm"
+          >
+            <div
+              class="absolute right-0 top-0 w-64 h-64 bg-theme-green-100 rounded-full translate-x-1/2 -translate-y-1/2 blur-2xl opacity-60"
+            ></div>
+
+            <div class="relative z-10 max-w-lg text-center md:text-left">
+              <h3 class="font-serif text-3xl font-bold text-theme-dark mb-4">
+                Tem um modelo específico em mente?
+              </h3>
+              <p class="text-theme-muted font-light">
+                Personalizamos cores, tamanhos e decorações para combinar
+                perfeitamente com a identidade do seu evento.
+              </p>
+            </div>
+
+            <button
+              onclick="contatoGeral()"
+              class="relative z-10 whitespace-nowrap bg-theme-green-500 text-white px-8 py-4 rounded-full font-medium hover:bg-theme-dark transition-colors duration-300 flex items-center gap-2 shadow-lg shadow-theme-green-300/30"
+            >
+              Falar com a Irana
+              <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARROSSEL INFINITO DE BOLOS (MARQUEE) -->
+      <section
+        class="py-16 overflow-hidden bg-white/30 border-y border-theme-pink-50"
+      >
+        <div class="max-w-6xl mx-auto px-4 mb-10 text-center">
+          <h2 class="font-serif text-3xl font-bold text-theme-dark">
+            Nossas Obras de Arte
+          </h2>
+          <p class="text-theme-muted mt-2 font-light">
+            Um pedacinho do que produzimos com muito carinho para nossos
+            clientes.
+          </p>
+        </div>
+
+        <!-- Container principal que esconde o excesso nas laterais -->
+        <div class="relative w-full flex overflow-hidden group">
+          <!-- Pista de rolagem 100% css usando Tailwind e largura min-content -->
+          <div class="flex w-max animate-marquee pause-on-hover gap-6 px-3">
+            <!-- Lote de Imagens 1 -->
+            <img
+              src="images/bolo-carrossel-1.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-2.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-3.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-4.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-5.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <!-- DUPLICANDO O LOTE (Para o efeito infinito ser contínuo) -->
+            <img
+              src="images/bolo-carrossel-1.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-2.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-3.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-4.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+
+            <img
+              src="images/bolo-carrossel-5.jpg"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
+              "
+              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              alt="Bolo da Irana"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Completo -->
+      <footer class="pt-16 pb-8 px-4 mt-8">
+        <div class="max-w-5xl mx-auto">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12"
+          >
+            <div class="text-center md:text-left">
+              <span class="font-serif text-3xl font-bold text-theme-dark"
+                >Irana Cakes</span
+              >
+              <p class="text-sm text-theme-muted mt-2 font-light">
+                Feito com amor, assado à perfeição.
+              </p>
+            </div>
+
+            <div class="flex items-center gap-6">
+              <a
+                href="https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                class="text-theme-muted hover:text-theme-pink-500 transition-colors flex items-center gap-2 text-sm font-medium"
+              >
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+                @iranacakes
+              </a>
+              <button
+                onclick="contatoGeral()"
+                class="text-theme-muted hover:text-theme-green-500 transition-colors flex items-center gap-2 text-sm font-medium"
+              >
+                <i data-lucide="phone" class="w-5 h-5"></i>
+                (81) 8315-0387
+              </button>
+            </div>
+          </div>
+
+          <!-- Linha de Assinatura -->
+          <div
+            class="pt-8 border-t border-theme-pink-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-theme-muted"
+          >
+            <p>&copy; 2026 Irana Cakes. Todos os direitos reservados.</p>
+            <p>
+              Desenvolvido por
+              <!-- Link direto para o seu portfólio de engenharia de software -->
+              <a
+                href="https://guibraga.com.br"
+                target="_blank"
+                class="font-medium text-theme-pink-500 hover:text-theme-dark transition-colors"
+              >
+                Guilherme Braga
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Inicializar Ícones -->
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
