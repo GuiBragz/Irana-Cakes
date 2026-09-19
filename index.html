@@ -50,26 +50,19 @@
                 muted: "#737373",
               },
             },
-            animation: {
-              // Velocidades diferentes para Desktop e Mobile
-              marquee: "marquee 25s linear infinite",
-              "marquee-mobile": "marquee 15s linear infinite",
-            },
-            keyframes: {
-              marquee: {
-                "0%": { transform: "translateX(0%)" },
-                "100%": { transform: "translateX(-50%)" },
-              },
-            },
           },
         },
       };
     </script>
 
     <style>
-      /* Suaviza a pausa do carrossel ao passar o mouse */
-      .pause-on-hover:hover {
-        animation-play-state: paused;
+      /* Esconde a barra de rolagem mas mantém a funcionalidade */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   </head>
@@ -78,7 +71,6 @@
   >
     <!-- Elementos Decorativos de Fundo -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      <!-- Donut Esquerda Cima -->
       <svg
         class="absolute top-[10%] left-[-5%] w-64 h-64 text-theme-pink-500 opacity-[0.04] transform -rotate-12"
         fill="currentColor"
@@ -88,7 +80,6 @@
           d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"
         />
       </svg>
-      <!-- Cupcake Direita Cima -->
       <svg
         class="absolute top-[20%] right-[-2%] w-48 h-48 text-theme-green-500 opacity-[0.04] transform rotate-12"
         fill="currentColor"
@@ -98,7 +89,6 @@
           d="M12,2A4,4,0,0,0,8,6c0,.13,0,.25.05.37C6.3,6.86,5,8.27,5,10c0,1.93,1.4,3.53,3.24,3.92L7,22H17l-1.24-8.08C17.6,13.53,19,11.93,19,10c0-1.73-1.3-3.14-3.05-3.63C16,6.25,16,6.13,16,6A4,4,0,0,0,12,2M12,4A2,2,0,0,1,14,6c0,.5-.18,1-.5,1.38L12,9,10.5,7.38C10.18,7,10,6.5,10,6A2,2,0,0,1,12,4Z"
         />
       </svg>
-      <!-- Fatias de Bolo Esquerda Meio -->
       <svg
         class="absolute top-[50%] left-[5%] w-40 h-40 text-theme-pink-500 opacity-[0.04] transform -rotate-6"
         fill="currentColor"
@@ -108,7 +98,6 @@
           d="M12,18H4V10L12,6M13,6.31L20,9.81V18H14M12,3L22,8V20H2V8L12,3Z"
         />
       </svg>
-      <!-- Cereja Direita Baixo -->
       <svg
         class="absolute bottom-[20%] right-[5%] w-56 h-56 text-theme-green-500 opacity-[0.04] transform rotate-45"
         fill="currentColor"
@@ -120,21 +109,57 @@
       </svg>
     </div>
 
-    <!-- Todo o conteúdo do site deve ficar em frente aos fundos decorativos -->
+    <!-- Modal Lightbox (Fica invisível por padrão) -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-[100] hidden bg-black/95 items-center justify-center opacity-0 transition-opacity duration-300"
+      onclick="closeLightbox()"
+    >
+      <!-- Botão X Vermelho -->
+      <button
+        onclick="closeLightbox()"
+        class="absolute top-6 right-6 z-[110] p-3 bg-black/40 rounded-full text-red-500 hover:text-red-400 hover:bg-black/60 transition-all border border-red-500/30"
+      >
+        <i data-lucide="x" class="w-8 h-8"></i>
+      </button>
+
+      <!-- Seta Esquerda -->
+      <button
+        onclick="prevLightbox(event)"
+        class="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 z-[110] p-4 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all backdrop-blur-md"
+      >
+        <i data-lucide="chevron-left" class="w-8 h-8"></i>
+      </button>
+
+      <!-- Seta Direita -->
+      <button
+        onclick="nextLightbox(event)"
+        class="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 z-[110] p-4 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all backdrop-blur-md"
+      >
+        <i data-lucide="chevron-right" class="w-8 h-8"></i>
+      </button>
+
+      <!-- Imagem Ampliada -->
+      <img
+        id="lightbox-img"
+        src=""
+        class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl scale-95 transition-transform duration-300"
+        alt="Bolo Ampliado"
+        onclick="event.stopPropagation()"
+      />
+    </div>
+
+    <!-- Conteúdo do Site -->
     <div class="relative z-10">
-      <!-- Lógica do WhatsApp e Instagram -->
+      <!-- Lógica do WhatsApp -->
       <script>
         const WHATSAPP_NUMBER = "558183150387";
-        const INSTAGRAM_URL =
-          "https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw==";
-
         function pedirBolo(nomeDoBolo) {
           const msg = encodeURIComponent(
             `Olá, Irana! Estava no seu site e me encantei pelo "${nomeDoBolo}". Poderia me passar os valores e disponibilidade? 🎂✨`,
           );
           window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
         }
-
         function contatoGeral() {
           const msg = encodeURIComponent(
             `Olá, Irana! Gostaria de conversar sobre uma encomenda de bolo.`,
@@ -143,7 +168,7 @@
         }
       </script>
 
-      <!-- Navbar Flutuante -->
+      <!-- Navbar -->
       <nav class="fixed top-4 left-0 right-0 z-50 px-4">
         <div
           class="max-w-5xl mx-auto bg-white/70 backdrop-blur-lg border border-white/40 shadow-sm rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between"
@@ -167,7 +192,7 @@
 
           <div class="flex items-center gap-2 sm:gap-4">
             <a
-              href="https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw=="
+              href="https://www.instagram.com/irana_pedrosa_cakes"
               target="_blank"
               class="p-2 rounded-full text-theme-muted hover:text-theme-pink-500 hover:bg-theme-pink-50 transition-colors"
             >
@@ -270,7 +295,6 @@
               <div
                 class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
               ></div>
-
               <div class="absolute inset-0 p-8 flex flex-col justify-end">
                 <div
                   class="transform transition-transform duration-500 group-hover:-translate-y-2"
@@ -298,7 +322,7 @@
               </div>
             </div>
 
-            <!-- Card 2: Bolo Temático (Três Andares / Hot Wheels) -->
+            <!-- Card 2: Bolo Temático -->
             <div
               onclick="pedirBolo('Bolo Temático')"
               class="group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-green-50 isolate shadow-sm hover:shadow-xl transition-shadow"
@@ -370,7 +394,6 @@
             <div
               class="absolute right-0 top-0 w-64 h-64 bg-theme-green-100 rounded-full translate-x-1/2 -translate-y-1/2 blur-2xl opacity-60"
             ></div>
-
             <div class="relative z-10 max-w-lg text-center md:text-left">
               <h3 class="font-serif text-3xl font-bold text-theme-dark mb-4">
                 Tem um modelo específico em mente?
@@ -380,7 +403,6 @@
                 perfeitamente com a identidade do seu evento.
               </p>
             </div>
-
             <button
               onclick="contatoGeral()"
               class="relative z-10 whitespace-nowrap bg-theme-green-500 text-white px-8 py-4 rounded-full font-medium hover:bg-theme-dark transition-colors duration-300 flex items-center gap-2 shadow-lg shadow-theme-green-300/30"
@@ -392,34 +414,32 @@
         </div>
       </section>
 
-      <!-- CARROSSEL INFINITO DE BOLOS (MARQUEE) -->
-      <section
-        class="py-16 overflow-hidden bg-white/30 border-y border-theme-pink-50"
-      >
+      <!-- CARROSSEL ARRASTÁVEL E CLICÁVEL -->
+      <section class="py-16 bg-white/30 border-y border-theme-pink-50 relative">
         <div class="max-w-6xl mx-auto px-4 mb-10 text-center">
           <h2 class="font-serif text-3xl font-bold text-theme-dark">
             Nossas Obras de Arte
           </h2>
           <p class="text-theme-muted mt-2 font-light">
-            Um pedacinho do que produzimos com muito carinho para nossos
-            clientes.
+            Arraste para os lados. Clique nas fotos para ampliar.
           </p>
         </div>
 
-        <!-- Container principal que esconde o excesso nas laterais -->
-        <div class="relative w-full flex overflow-hidden group">
-          <!-- Aplicamos as velocidades responsivas criadas no script: animate-marquee-mobile e md:animate-marquee -->
-          <div
-            class="flex w-max animate-marquee-mobile md:animate-marquee pause-on-hover gap-6 px-3"
-          >
-            <!-- Lote de Imagens 1 -->
+        <!-- O wrapper que controla a rolagem por JS -->
+        <div
+          id="carousel-wrapper"
+          class="w-full overflow-x-auto no-scrollbar cursor-grab touch-pan-x"
+          style="scroll-behavior: auto"
+        >
+          <div id="carousel-track" class="flex w-max gap-6 px-4 pb-4">
+            <!-- Adicionada a classe 'carousel-img' e o estilo 'pointer-events-none' no arrasto -->
             <img
               src="images/bolo-carrossel-1.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -428,7 +448,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -437,7 +457,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -446,7 +466,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -455,18 +475,18 @@
                 this.src =
                   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
 
-            <!-- DUPLICANDO O LOTE (Para o efeito infinito ser contínuo) -->
+            <!-- Duplicatas para efeito infinito -->
             <img
               src="images/bolo-carrossel-1.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -475,7 +495,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -484,7 +504,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -493,7 +513,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
             <img
@@ -502,7 +522,7 @@
                 this.src =
                   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
               "
-              class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
+              class="carousel-img w-64 h-80 object-cover rounded-3xl shadow-sm hover:shadow-md border border-theme-pink-50 cursor-pointer transition-shadow"
               alt="Bolo da Irana"
             />
           </div>
@@ -523,10 +543,9 @@
                 Feito com amor, assado à perfeição.
               </p>
             </div>
-
             <div class="flex items-center gap-6">
               <a
-                href="https://www.instagram.com/irana_pedrosa_cakes?stkn=ZDNlZDc0MzIxNw=="
+                href="https://www.instagram.com/irana_pedrosa_cakes"
                 target="_blank"
                 class="text-theme-muted hover:text-theme-pink-500 transition-colors flex items-center gap-2 text-sm font-medium"
               >
@@ -542,7 +561,6 @@
               </button>
             </div>
           </div>
-
           <!-- Linha de Assinatura -->
           <div
             class="pt-8 border-t border-theme-pink-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-theme-muted"
@@ -550,7 +568,6 @@
             <p>&copy; 2026 Irana Cakes. Todos os direitos reservados.</p>
             <p>
               Desenvolvido por
-              <!-- Link direto para o seu portfólio de engenharia de software -->
               <a
                 href="https://guibraga.com.br"
                 target="_blank"
@@ -567,6 +584,142 @@
     <!-- Inicializar Ícones -->
     <script>
       lucide.createIcons();
+    </script>
+
+    <!-- SCRIPT DE LÓGICA DO CARROSSEL ARRASTÁVEL E LIGHTBOX -->
+    <script>
+      // 1. CARROSSEL ARRASTÁVEL COM AUTOSCROLL
+      const wrapper = document.getElementById("carousel-wrapper");
+      let isHovering = false;
+      let isMouseDown = false;
+      let isDragging = false;
+      let startX;
+      let scrollLeft;
+
+      // Ajusta a velocidade de auto rolagem (mais rápido no celular)
+      const autoScrollSpeed = window.innerWidth < 768 ? 2 : 1.2;
+
+      function scrollLoop() {
+        if (!isHovering && !isMouseDown) {
+          wrapper.scrollLeft += autoScrollSpeed;
+          // Loop infinito (reseta ao chegar no meio)
+          if (wrapper.scrollLeft >= wrapper.scrollWidth / 2) {
+            wrapper.scrollLeft = 0;
+          }
+        }
+        requestAnimationFrame(scrollLoop);
+      }
+      requestAnimationFrame(scrollLoop); // Inicia o loop
+
+      // Eventos de Pausa
+      wrapper.addEventListener("mouseenter", () => (isHovering = true));
+      wrapper.addEventListener("mouseleave", () => {
+        isHovering = false;
+        isMouseDown = false;
+        wrapper.classList.remove("cursor-grabbing");
+        wrapper.classList.add("cursor-grab");
+      });
+
+      // Eventos de Toque (Celular)
+      wrapper.addEventListener("touchstart", () => (isHovering = true), {
+        passive: true,
+      });
+      wrapper.addEventListener("touchend", () => (isHovering = false));
+
+      // Eventos de Arrasto (Mouse Desktop)
+      wrapper.addEventListener("mousedown", (e) => {
+        isMouseDown = true;
+        isDragging = false; // Começa como clique falso até mover
+        wrapper.classList.add("cursor-grabbing");
+        wrapper.classList.remove("cursor-grab");
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+      });
+
+      wrapper.addEventListener("mousemove", (e) => {
+        if (!isMouseDown) return;
+        e.preventDefault();
+        isDragging = true; // Se moveu o mouse, é um arrasto e não clique
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1.5; // Velocidade do arrasto manual
+        wrapper.scrollLeft = scrollLeft - walk;
+      });
+
+      wrapper.addEventListener("mouseup", () => {
+        isMouseDown = false;
+        wrapper.classList.remove("cursor-grabbing");
+        wrapper.classList.add("cursor-grab");
+      });
+
+      // 2. LÓGICA DO LIGHTBOX (Galeria de Cliques)
+      const modal = document.getElementById("lightbox");
+      const modalImg = document.getElementById("lightbox-img");
+      const carouselImages = Array.from(
+        document.querySelectorAll(".carousel-img"),
+      );
+      let currentIndex = 0;
+
+      // Adiciona o evento de clique em cada foto do carrossel
+      carouselImages.forEach((img, index) => {
+        img.addEventListener("click", (e) => {
+          // Se estava apenas arrastando, não abre a foto
+          if (isDragging) {
+            e.preventDefault();
+            return;
+          }
+          openLightbox(index);
+        });
+      });
+
+      function openLightbox(index) {
+        currentIndex = index;
+        modalImg.src = carouselImages[currentIndex].src;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        // Efeito suave de entrada
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modalImg.classList.remove("scale-95");
+          modalImg.classList.add("scale-100");
+        }, 10);
+
+        document.body.style.overflow = "hidden"; // Trava o scroll do site no fundo
+      }
+
+      function closeLightbox() {
+        modal.classList.add("opacity-0");
+        modalImg.classList.remove("scale-100");
+        modalImg.classList.add("scale-95");
+
+        // Aguarda animação para sumir da tela
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "";
+        }, 300);
+      }
+
+      function nextLightbox(e) {
+        e.stopPropagation(); // Evita que o clique na seta feche o modal
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        modalImg.src = carouselImages[currentIndex].src;
+      }
+
+      function prevLightbox(e) {
+        e.stopPropagation();
+        currentIndex =
+          (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+        modalImg.src = carouselImages[currentIndex].src;
+      }
+
+      // Atalhos de teclado (Mover com as setas e fechar com o ESC)
+      document.addEventListener("keydown", (e) => {
+        if (modal.classList.contains("hidden")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") nextLightbox(e);
+        if (e.key === "ArrowLeft") prevLightbox(e);
+      });
     </script>
   </body>
 </html>
