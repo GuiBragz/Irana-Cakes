@@ -51,7 +51,9 @@
               },
             },
             animation: {
-              marquee: "marquee 35s linear infinite",
+              // Velocidades diferentes para Desktop e Mobile
+              marquee: "marquee 25s linear infinite",
+              "marquee-mobile": "marquee 15s linear infinite",
             },
             keyframes: {
               marquee: {
@@ -74,7 +76,7 @@
   <body
     class="bg-theme-bg text-theme-dark font-sans antialiased selection:bg-theme-pink-100 selection:text-theme-pink-500 overflow-x-hidden relative"
   >
-    <!-- Elementos Decorativos de Fundo (Bolos, Rosquinhas, etc em opacidade 4%) -->
+    <!-- Elementos Decorativos de Fundo -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <!-- Donut Esquerda Cima -->
       <svg
@@ -251,14 +253,18 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
-            <!-- Card 1 -->
+            <!-- Card 1: Bolo de Casamento -->
             <div
-              onclick="pedirBolo('Bolo Prestígio Clássico')"
+              onclick="pedirBolo('Bolo de Casamento')"
               class="md:col-span-2 md:row-span-2 group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-pink-50 isolate shadow-sm hover:shadow-xl transition-shadow"
             >
               <img
-                src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?q=80&w=1200&auto=format&fit=crop"
-                alt="Bolo Prestígio"
+                src="images/bolo-casamento.jpeg"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop'
+                "
+                alt="Bolo de Casamento"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div
@@ -271,16 +277,16 @@
                 >
                   <span
                     class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium mb-3 border border-white/30"
-                    >Premium</span
+                    >Especial de Casamento</span
                   >
                   <h3
                     class="font-serif text-3xl sm:text-4xl text-white font-bold mb-2"
                   >
-                    Prestígio Clássico
+                    O Sonho da Sua Festa
                   </h3>
                   <p class="text-white/80 font-light max-w-md hidden sm:block">
-                    Massa molhadinha de chocolate intenso com recheio cremoso de
-                    coco fresco.
+                    Designs elegantes e exclusivos para transformar o seu grande
+                    dia em um momento inesquecível.
                   </p>
                   <div
                     class="mt-6 flex items-center gap-2 text-white text-sm font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
@@ -292,14 +298,18 @@
               </div>
             </div>
 
-            <!-- Card 2 -->
+            <!-- Card 2: Bolo Temático (Três Andares / Hot Wheels) -->
             <div
-              onclick="pedirBolo('Red Velvet Especial')"
+              onclick="pedirBolo('Bolo Temático')"
               class="group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-green-50 isolate shadow-sm hover:shadow-xl transition-shadow"
             >
               <img
-                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop"
-                alt="Bolo Red Velvet"
+                src="images/bolo-tematico.jpeg"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?q=80&w=800&auto=format&fit=crop'
+                "
+                alt="Bolo Temático"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div
@@ -307,7 +317,7 @@
               ></div>
               <div class="absolute inset-0 p-6 flex flex-col justify-end">
                 <h3 class="font-serif text-2xl text-white font-bold">
-                  Red Velvet Original
+                  Bolo Temático
                 </h3>
                 <div
                   class="mt-4 flex items-center gap-2 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -318,14 +328,18 @@
               </div>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Card 3: Bolo Vulcão -->
             <div
-              onclick="pedirBolo('Chocolatudo Intenso')"
+              onclick="pedirBolo('Bolo Vulcão')"
               class="group cursor-pointer relative rounded-[2rem] overflow-hidden bg-theme-pink-100 isolate shadow-sm hover:shadow-xl transition-shadow"
             >
               <img
-                src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop"
-                alt="Bolo de Chocolate"
+                src="images/bolo-vulcao.jpeg"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'
+                "
+                alt="Bolo Vulcão"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div
@@ -333,7 +347,7 @@
               ></div>
               <div class="absolute inset-0 p-6 flex flex-col justify-end">
                 <h3 class="font-serif text-2xl text-white font-bold">
-                  Chocolatudo Intenso
+                  Bolo Vulcão
                 </h3>
                 <div
                   class="mt-4 flex items-center gap-2 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -394,11 +408,13 @@
 
         <!-- Container principal que esconde o excesso nas laterais -->
         <div class="relative w-full flex overflow-hidden group">
-          <!-- Pista de rolagem 100% css usando Tailwind e largura min-content -->
-          <div class="flex w-max animate-marquee pause-on-hover gap-6 px-3">
+          <!-- Aplicamos as velocidades responsivas criadas no script: animate-marquee-mobile e md:animate-marquee -->
+          <div
+            class="flex w-max animate-marquee-mobile md:animate-marquee pause-on-hover gap-6 px-3"
+          >
             <!-- Lote de Imagens 1 -->
             <img
-              src="images/bolo-carrossel-1.jpg"
+              src="images/bolo-carrossel-1.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
@@ -406,9 +422,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-2.jpg"
+              src="images/bolo-carrossel-2.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
@@ -416,9 +431,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-3.jpg"
+              src="images/bolo-carrossel-3.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
@@ -426,9 +440,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-4.jpg"
+              src="images/bolo-carrossel-4.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
@@ -436,9 +449,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-5.jpg"
+              src="images/bolo-carrossel-5.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
@@ -449,7 +461,7 @@
 
             <!-- DUPLICANDO O LOTE (Para o efeito infinito ser contínuo) -->
             <img
-              src="images/bolo-carrossel-1.jpg"
+              src="images/bolo-carrossel-1.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=400&auto=format&fit=crop'
@@ -457,9 +469,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-2.jpg"
+              src="images/bolo-carrossel-2.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'
@@ -467,9 +478,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-3.jpg"
+              src="images/bolo-carrossel-3.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400&auto=format&fit=crop'
@@ -477,9 +487,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-4.jpg"
+              src="images/bolo-carrossel-4.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=400&auto=format&fit=crop'
@@ -487,9 +496,8 @@
               class="w-64 h-80 object-cover rounded-3xl shadow-sm border border-theme-pink-50"
               alt="Bolo da Irana"
             />
-
             <img
-              src="images/bolo-carrossel-5.jpg"
+              src="images/bolo-carrossel-5.jpeg"
               onerror="
                 this.src =
                   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=400&auto=format&fit=crop'
